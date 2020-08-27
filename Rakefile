@@ -1,14 +1,14 @@
 require "bundler/gem_tasks"
 
-source_dir = "materialize-src" 
+source_dir = "materialize-src"
 
 namespace :javascripts do
-  
+
   desc "Cleaning javascripts directory"
   task :clean do
-   rm_rf "assets/javascripts/materialize"
+    rm_rf "assets/javascripts/materialize"
   end
-  
+
   desc "Copy #{source_dir}/dist/src/js"
   task :copy do
     src_dir = "#{source_dir}/dist/src/js/."
@@ -17,9 +17,9 @@ namespace :javascripts do
     cp_r src_dir, tgt_dir
     cp "#{source_dir}/dist/js/materialize.js", "assets/javascripts"
   end
-  
+
   ##todo
-  # materialize-sprockets.js  
+  # materialize-sprockets.js
 
   desc "Copy #{source_dir}/extras/"
   task :copy_extras do
@@ -28,7 +28,7 @@ namespace :javascripts do
     mkdir_p tgt_dir
     cp_r src_dir, tgt_dir
   end
-  
+
   task :turbolinks_init do
     files =  Dir.glob('assets/javascripts/materialize/**/*.js').reject { |file| file.end_with?(".min.js") and File.file?(file) }
     files.each do |file|
@@ -41,8 +41,7 @@ namespace :javascripts do
         File.open(file, "w") { |f| f.puts fixed_content}
       end
     end
-  end 
-  
+  end
 
   desc "Setup javascript assets"
   task setup: [:clean, :copy, :copy_extras]
@@ -52,7 +51,7 @@ end
 namespace :stylesheets do
   desc "Cleaning stylesheets directory"
   task :clean do
-   rm_rf "assets/stylesheets/materialize"
+    rm_rf "assets/stylesheets/materialize"
   end
 
   desc "Copy #{source_dir}/sass/"
@@ -73,7 +72,7 @@ namespace :stylesheets do
     mkdir_p tgt_dir
     cp_r src_dir, tgt_dir
   end
- 
+
   desc "Fix url in stylesheets"
   task :fix_urls do
     Dir.glob('assets/stylesheets/**/*.scss').each do |file|
@@ -87,13 +86,10 @@ namespace :stylesheets do
     fixed_content = content.gsub(/components/, 'materialize/components')
     File.open(file, "w") { |f| f.puts fixed_content}
 
-
     file = "assets/stylesheets/materialize/components/_variables.scss"
     content = File.read(file)
     fixed_content = content.gsub(/..\/fonts\/roboto\//, 'roboto/')
     File.open(file, "w") { |f| f.puts fixed_content}
-
-
   end
 
   desc "Setup stylesheet assets"
@@ -103,7 +99,7 @@ end
 namespace :fonts do
   desc "Cleaning fonts directory"
   task :clean do
-   rm_rf "assets/fonts"
+    rm_rf "assets/fonts"
   end
 
   desc "Copy #{source_dir}/dist/fonts/"
