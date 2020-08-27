@@ -20,19 +20,19 @@ module Materialize
 
       # Paths
       def gem_path
-        @gem_path ||= File.expand_path '..', File.dirname(__FILE__)
+        @gem_path ||= File.expand_path "..", File.dirname(__FILE__)
       end
 
       def stylesheets_path
-        File.join assets_path, 'stylesheets'
+        File.join assets_path, "stylesheets"
       end
 
       def javascripts_path
-        File.join assets_path, 'javascripts'
+        File.join assets_path, "javascripts"
       end
 
       def assets_path
-        @assets_path ||= File.join gem_path, 'assets'
+        @assets_path ||= File.join gem_path, "assets"
       end
 
       # Environment detection helpers
@@ -51,7 +51,7 @@ module Materialize
       private
 
       def register_rails_engine
-        require 'materialize-sass/engine'
+        require "materialize-sass/engine"
       end
 
       def register_sprockets
